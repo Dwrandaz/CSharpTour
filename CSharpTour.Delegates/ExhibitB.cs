@@ -11,6 +11,7 @@ namespace CSharpTour.Delegates
             DoSomething(person, p => Console.WriteLine($"{person.Name} is saved!"));
 
             // Multicast Actions
+            // We can chain actions to one another
             Action<Person> action = p =>
             {
                 Console.WriteLine($"First Action: {p.Name}");

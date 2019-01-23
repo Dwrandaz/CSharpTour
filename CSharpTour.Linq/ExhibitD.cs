@@ -16,6 +16,7 @@ namespace CSharpTour.Linq
             }
         }
 
+        // We can create new Linq operators!
         public static IEnumerable<T> Ka<T>(this IEnumerable<T> sequence, Func<T, bool> predicate)
         {
             foreach (var item in sequence)

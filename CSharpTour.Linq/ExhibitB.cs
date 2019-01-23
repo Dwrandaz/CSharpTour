@@ -40,11 +40,13 @@ namespace CSharpTour.Linq
                     Price = _random.NextDouble() * 100
                 };
 
+                // We can use the yield keyword to return a sequence of items,
+                // instead of a single value.
                 yield return thing;
             }
         }
 
-        // Cant use yield inside try-catch block!
+        // Note: Cant use yield inside try-catch block!
 
         //public static IEnumerable<int> Generate(int count)
         //{

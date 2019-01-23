@@ -8,6 +8,7 @@ namespace CSharpTour.Delegates
         {
             var person = new Person { Name = "Jaafar", Age = 120 };
 
+            // We can pass methods as parameters to other methods
             Print(person, p => $"{p.Name} is {p.Age} years old.");
             Print(person, FormatPerson);
         }

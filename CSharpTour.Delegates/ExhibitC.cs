@@ -52,6 +52,7 @@ namespace CSharpTour.Delegates
 
             public void RaiseEvent(object s, ElapsedEventArgs elapsed)
             {
+                // Make sure we don't server more than 3 meals a day
                 if (_currentMeal >= _meals.Length)
                 {
                     _timer.Stop();

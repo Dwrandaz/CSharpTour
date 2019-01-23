@@ -13,6 +13,7 @@ namespace CSharpTour.Linq
             var text1 = "someone@something.com";
             var text2 = "John smith";
 
+            // IsEmail can be used as if its actually a method on the String class
             Console.WriteLine($"{text1} is Email? {text1.IsEmail()}");
             Console.WriteLine($"{text2} is Email? {text2.IsEmail()}");
         }

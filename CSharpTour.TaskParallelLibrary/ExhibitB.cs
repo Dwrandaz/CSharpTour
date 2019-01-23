@@ -52,6 +52,7 @@ namespace CSharpTour.TaskParallelLibrary
             Console.WriteLine($"Parallel ForEach: {watch.ElapsedMilliseconds:N0}");
             watch.Restart();
 
+            // LINQ queries can also be evaluated parallel-ly through PLINQ
             list.AsParallel().ForAll(item =>
             {
                 for (int j = 0; j < 1_000; j++)
