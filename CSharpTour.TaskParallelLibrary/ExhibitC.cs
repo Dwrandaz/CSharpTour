@@ -15,7 +15,7 @@ namespace CSharpTour.TaskParallelLibrary
             // Note: Avoid using Task.Wait or Task<T>.Result in normal situations!
             // I've used it here because this is a console applcation.
 
-            RunAsync().Wait(); 
+            RunAsync().Wait();
         }
 
         private async static Task RunAsync()
@@ -31,27 +31,54 @@ namespace CSharpTour.TaskParallelLibrary
             var watch = new Stopwatch();
             watch.Start();
 
-            foreach(var url in list)
+            foreach (var url in list)
             {
                 var catBytes = await DownloadAsync(url);
             }
 
             watch.Stop();
-            Console.WriteLine($"Sequential: {watch.ElapsedMilliseconds:N0}");
+            Console.WriteLine($"I/O Bound, Sequential: {watch.ElapsedMilliseconds:N0}");
             watch.Restart();
 
             var tasks = list.Select(url => DownloadAsync(url));
 
             await Task.WhenAll(tasks);
 
-            Console.WriteLine($"Task.WhenAll: {watch.ElapsedMilliseconds:N0}");
+            watch.Stop();
+            Console.WriteLine($"I/O Bound, Task.WhenAll: {watch.ElapsedMilliseconds:N0}");
             watch.Restart();
+
+            for (int i = 0; i < 5; i++)
+            {
+                await CPUWork();
+            }
+
+            watch.Stop();
+            Console.WriteLine($"CPU Bound, Sequential: {watch.ElapsedMilliseconds:N0}");
+            watch.Restart();
+
+            var cpuTasks = new List<Task>();
+
+            for (int i = 0; i < 5; i++)
+            {
+                cpuTasks.Add(CPUWork());
+            }
+
+            await Task.WhenAll(cpuTasks);
+
+            watch.Stop();
+            Console.WriteLine($"CPU Bound, Sequential: {watch.ElapsedMilliseconds:N0}");
         }
 
         private static HttpClient _client = new HttpClient();
         private static Task<byte[]> DownloadAsync(string url)
         {
             return _client.GetByteArrayAsync(url);
+        }
+
+        private static Task CPUWork()
+        {
+            return Task.Delay(1000);
         }
     }
 }
